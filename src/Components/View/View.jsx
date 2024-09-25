@@ -3,12 +3,13 @@ import React,  {useEffect,useContext, useState } from 'react';
 import './View.css';
 import { PostContext } from '../../store/viewContext';
 import fireBaseContext from '../../store/firebaseContext';
+import { json } from 'react-router-dom';
 
 function View() {
 
 
   const [userDetails, setUserDetails] = useState()
-  const {postDetails} = useContext(PostContext)
+  const {postDetails, setPostDetails} = useContext(PostContext)
   const {firebase} = useContext(fireBaseContext)
 
 
@@ -26,6 +27,26 @@ function View() {
    
 
   },[])
+
+  useEffect(()=>{
+    console.log(postDetails.length, "postDetails.length")
+    if(postDetails.length >0){
+      localStorage.setItem('productDetails', JSON.stringify(postDetails));
+    }
+
+  },[postDetails])
+
+  useEffect(()=>{
+    if(postDetails.length == 0){
+      const storedProducts = localStorage.getItem("productDetails");
+      if(storedProducts){
+        setPostDetails(JSON.parse(storedProducts))
+      }
+    }
+  },[postDetails])
+
+
+
   
   return (
     <div className="viewParentDiv">

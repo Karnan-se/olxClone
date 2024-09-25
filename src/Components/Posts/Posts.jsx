@@ -13,7 +13,7 @@ function Posts() {
   const {firebase}=useContext(fireBaseContext)
   const [products, setProducts] = useState([])
   const navigate = useNavigate()
-  const {setPostDetails} = useContext(PostContext)
+  const {postDetails,setPostDetails} = useContext(PostContext)
   
 
   let allPosts =[]
@@ -38,6 +38,11 @@ function Posts() {
     
     console.log(products, "products")
   },[])
+
+
+  useEffect(()=>{
+
+  },[setPostDetails])
 
 
 
